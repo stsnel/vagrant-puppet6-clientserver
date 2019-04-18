@@ -1,0 +1,8 @@
+#!/bin/bash
+
+source .env
+
+vagrant ssh server -- "sudo /opt/puppetlabs/bin/puppetserver ca clean --certname $CLIENTHOSTNAME" || \
+  echo "Could not remove old client certificate. This message is expected when deploying the client for the first time."
+vagrant destroy -f client
+time vagrant up client
